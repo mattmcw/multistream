@@ -22,21 +22,19 @@ const config = {
 const localStream = 'rtmp://localhost:1937/live/STREAM';
 
 const nms : any = new NodeMediaServer(config)
-const ffmpeg : any = new Ffmpeg((obj : any) => { console.dir(obj) });
+const ffmpeg : any = new Ffmpeg((obj : any) => { 
+  console.dir(obj) 
+});
 let win : any
 
 app.on('ready', main)
 app.on('window-all-closed', () => { app.quit() });
 ipcMain.on('stream', (ev : any, args : any) => {
-  //console.dir(ev)
-  console.dir(args)
   const remoteStream : string = join(args.url, args.key);
   ffmpeg.stream(localStream, remoteStream, args.which);
 })
 
 ipcMain.on('kill', (ev : any, args : any) => {
-  console.dir(ev)
-  console.dir(args)
   ffmpeg.kill(args.which)
 })
 

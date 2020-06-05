@@ -41,7 +41,7 @@ class Ffmpeg {
             '-f', 'flv',
             output
         ];
-        console.log(`Starting stream ${input} -> ${output}`);
+        console.log(`Starting stream "${id}" ${input} -> ${output}`);
         return new Promise((resolve, reject) => {
             const child = child_process_1.spawn(bin, args);
             let stdout = '';
@@ -73,6 +73,7 @@ class Ffmpeg {
     }
     kill(id) {
         if (typeof this.streams[id] !== 'undefined') {
+            console.log(`Killing stream "${id}"`);
             this.streams[id].kill();
         }
     }

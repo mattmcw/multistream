@@ -18,19 +18,17 @@ const config = {
 };
 const localStream = 'rtmp://localhost:1937/live/STREAM';
 const nms = new NodeMediaServer(config);
-const ffmpeg = new Ffmpeg((obj) => { console.dir(obj); });
+const ffmpeg = new Ffmpeg((obj) => {
+    console.dir(obj);
+});
 let win;
 app.on('ready', main);
 app.on('window-all-closed', () => { app.quit(); });
 ipcMain.on('stream', (ev, args) => {
-    //console.dir(ev)
-    console.dir(args);
     const remoteStream = join(args.url, args.key);
     ffmpeg.stream(localStream, remoteStream, args.which);
 });
 ipcMain.on('kill', (ev, args) => {
-    console.dir(ev);
-    console.dir(args);
     ffmpeg.kill(args.which);
 });
 async function main() {

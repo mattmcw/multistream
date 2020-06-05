@@ -5,6 +5,7 @@
   "main": "dist/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "./node_modules/.bin/electron .",
     "compile": "./node_modules/.bin/tsc --project tsconfig.json"
   },
   "repository": {
