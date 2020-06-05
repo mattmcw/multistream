@@ -58,9 +58,9 @@
             <div class="title-bar">
               <div class="title-bar-text">Multistream</div>
               <div class="title-bar-controls">
-                <button aria-label="Minimize"></button>
-                <button aria-label="Maximize"></button>
-                <button aria-label="Close"></button>
+                <button aria-label="Minimize" id="min-btn"></button>
+                <button aria-label="Maximize" id="max-btn"></button>
+                <button aria-label="Close" id="close-btn"></button>
               </div>
             </div>
             <br />
@@ -175,7 +175,8 @@
         </div>
         <script src="./js/flv.min.js"></script>
         <script>
-            const { ipcRenderer } = require('electron')
+            const { ipcRenderer, remote } = require('electron')
+            const { BrowserWindow } = remote
             var flvPlayer
             var videoElement 
             var started = false
@@ -243,7 +244,26 @@
                 ipcRenderer.send('kill', { which });
             }
 
-            var services = ['youtube', 'twitch', 'instagram', 'facebook'];
+            document.getElementById('min-btn').addEventListener('click', (e) => {
+                    var window = BrowserWindow.getFocusedWindow();
+                    window.minimize();
+            });
+
+            // Maximize window
+            document.getElementById('max-btn').addEventListener('click', (e) => {
+                var window = BrowserWindow.getFocusedWindow();
+                if(window.isMaximized()){
+                    window.unmaximize();
+                }else{
+                    window.maximize();
+                }
+            });
+
+            // Close app
+            document.getElementById('close-btn').addEventListener('click', (e) => {
+                var window = BrowserWindow.getFocusedWindow();
+                window.close();
+            });
 
             document.getElementById('youtube_off').onchange = () => { streamToggle('youtube') };
             document.getElementById('youtube_on').onchange = () => { streamToggle('youtube') };
