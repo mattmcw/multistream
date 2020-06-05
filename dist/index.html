@@ -1,0 +1,276 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./css/98.css" />
+        <style>
+            *{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+             -khtml-user-select: none;
+               -moz-user-select: none;
+                -ms-user-select: none;
+                    user-select: none;
+            }
+            html, body{
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            video{
+                width: 640px;
+                height:auto;
+                image-rendering: high-quality;
+                background: #000;
+            }
+            .window{
+                position: absolute;
+                width: auto;
+                height: auto;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+            .title-bar {
+              -webkit-user-select: none;
+              -webkit-app-region: drag;
+            }
+
+            .title-bar .title-bar-controls button {
+              -webkit-app-region: no-drag;
+            }
+            .col{
+                width: 49%;
+                display: inline-block;
+            }
+            fieldset{
+                position: relative;
+            }
+            .toggle{
+                width: 50px;
+                position: absolute;
+                right: 0;
+                top: 30px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="window">
+            <div class="title-bar">
+              <div class="title-bar-text">Multistream</div>
+              <div class="title-bar-controls">
+                <button aria-label="Minimize"></button>
+                <button aria-label="Maximize"></button>
+                <button aria-label="Close"></button>
+              </div>
+            </div>
+            <br />
+            <fieldset>
+                <legend>Live</legend>
+                <video id="videoElement"></video>
+                <br />
+                <br />
+                <button id="start" onclick="start();">View Stream</button>
+                <input id="stream_url" type="text" readonly disabled value="rtmp://localhost:1937/live/STREAM" style="width: 200px" />
+                <span>Width</span>
+                <input id="stream_width" type="text" readonly disabled value="0" style="width: 50px" />
+                <span>Height</span>
+                <input id="stream_height" type="text" readonly disabled value="0" style="width: 50px" />
+                FPS
+                <input id="stream_fps" type="text" readonly disabled value="0" style="width: 30px" />
+                Rate
+                <input id="stream_rate" type="text" readonly disabled value="0" style="width: 50px" />
+            </fieldset>
+            <br />
+            <div id="providers">
+                <div>
+                    <div class="col">
+                        <fieldset>
+                          <legend>Youtube</legend>
+                            <div class="field-row-stacked" style="width: 200px">
+                              <input id="youtube_url" type="text" placeholder="rtmp://" />
+                            </div>
+                            <div class="field-row-stacked" style="width: 200px">
+                              <input id="youtube_key" type="password" placeholder="Key" />
+                            </div>
+                            <div class="toggle">
+                                <div class="field-row">
+                                  <input id="youtube_off" type="radio" name="youtube" value="off" checked>
+                                  <label for="youtube_off">Off</label>
+                                </div>
+                                <div class="field-row">
+                                  <input id="youtube_on" type="radio" name="youtube"  value="on" disabled>
+                                  <label for="youtube_on">On</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col">
+                        <fieldset>
+                          <legend>Twitch</legend>
+                            <div class="field-row-stacked" style="width: 200px">
+                              <input id="twitch_url" type="text" placeholder="rtmp://" />
+                            </div>
+                            <div class="field-row-stacked" style="width: 200px">
+                              <input id="twitch_key" type="password" placeholder="Key" />
+                            </div>
+                            <div class="toggle">
+                                <div class="field-row">
+                                  <input id="twitch_off" type="radio" name="twitch" value="off"  checked>
+                                  <label for="twitch_off">Off</label>
+                                </div>
+                                <div class="field-row">
+                                  <input id="twitch_on" type="radio" name="twitch" value="on" disabled>
+                                  <label for="twitch_on">On</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <br />
+                <div>
+                    <div class="col">
+                    <fieldset>
+                      <legend>Facebook</legend>
+                        <div class="field-row-stacked" style="width: 200px">
+                          <input id="facebook_url" type="text" placeholder="rtmp://" />
+                        </div>
+                        <div class="field-row-stacked" style="width: 200px">
+                          <input id="facebook_key" type="password" placeholder="Key" />
+                        </div>
+                        <div class="toggle">
+                            <div class="field-row">
+                              <input id="facebook_off" type="radio" name="facebook"  value="off" checked>
+                              <label for="facebook_off">Off</label>
+                            </div>
+                            <div class="field-row">
+                              <input id="facebook_on" type="radio" name="facebook" value="on" disabled>
+                              <label for="facebook_on">On</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col">
+                    <fieldset>
+                      <legend>Instagram</legend>
+                        <div class="field-row-stacked" style="width: 200px">
+                          <input id="instagram_url" type="text" placeholder="rtmp://" />
+                        </div>
+                        <div class="field-row-stacked" style="width: 200px">
+                          <input id="instagram_key" type="password" placeholder="Key" />
+                        </div>
+                        <div class="toggle">
+                            <div class="field-row">
+                              <input id="instagram_off" type="radio" name="instagram" value="off"  checked>
+                              <label for="instagram_off">Off</label>
+                            </div>
+                            <div class="field-row">
+                              <input id="instagram_on" type="radio" name="instagram" value="on" disabled>
+                              <label for="instagram_on">On</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                </div>
+            </div>
+        </div>
+        <script src="./js/flv.min.js"></script>
+        <script>
+            const { ipcRenderer } = require('electron')
+            var flvPlayer
+            var videoElement 
+            var started = false
+
+            function validateURL (which, path) {
+                console.log(which)
+                console.log(path)
+                if (path.indexOf('rtmp://') !== -1) {
+                    document.getElementById(which + "_on").disabled = false;
+                } else {
+                    document.getElementById(which + "_off").disabled = false;
+                }
+            }
+            function start () {
+                if (flvjs.isSupported() && !started) {
+                    videoElement = document.getElementById('videoElement');
+                    flvPlayer = flvjs.createPlayer({
+                        type: 'flv',
+                        url: 'http://localhost:8000/live/STREAM.flv'
+                    });
+                    flvPlayer.attachMediaElement(videoElement);
+                    flvPlayer.load();
+                    flvPlayer.play();
+                    setTimeout(updateInfo, 100);
+                    setTimeout(updateInfo, 1000);
+                    setTimeout(updateInfo, 10000);
+                    document.getElementById('start').disabled = true
+                    started = true
+                }
+            }
+            function updateInfo () {
+                if (flvPlayer._mediaInfo) {
+                    document.getElementById('stream_width').value = flvPlayer._mediaInfo.width;
+                    document.getElementById('stream_height').value = flvPlayer._mediaInfo.height;
+                    document.getElementById('stream_fps').value = flvPlayer._mediaInfo.fps;
+                    document.getElementById('stream_rate').value = flvPlayer._mediaInfo.videoDataRate;
+                }
+            }
+
+            function radioCheck (name) {
+                var elem = document.getElementsByName(name)
+                var value
+                for (i = 0; i < elem.length; i++) {  
+                    console.dir(elem[i])
+                    if (elem[i].checked) {
+                        value = elem[i].value
+                    }
+                } 
+                return value
+            }
+            function streamToggle (which) {
+                var val = radioCheck(which)
+                if (val == 'on') {
+                    stream(which)
+                } else if (val == 'off') {
+                    kill(which)
+                }
+            }
+            function stream (which) {
+                var url = document.getElementById(which + '_url').value;
+                var key = document.getElementById(which + '_key').value;
+                ipcRenderer.send('stream', { which, url, key})
+            }
+            function kill (which) {
+                ipcRenderer.send('kill', { which });
+            }
+
+            var services = ['youtube', 'twitch', 'instagram', 'facebook'];
+
+            document.getElementById('youtube_off').onchange = () => { streamToggle('youtube') };
+            document.getElementById('youtube_on').onchange = () => { streamToggle('youtube') };
+
+            document.getElementById('youtube_url').oninput = (function () {
+                validateURL('youtube', document.getElementById('youtube_url').value);
+            });
+
+            document.getElementById('twitch_off').onchange = () => { streamToggle('twitch') };
+            document.getElementById('twitch_on').onchange = () => { streamToggle('twitch') };
+
+            document.getElementById('twitch_url').oninput = (function () {
+                validateURL('twitch', document.getElementById('twitch_url').value);
+            });
+
+            document.getElementById('facebook_off').onchange = () => { streamToggle('facebook') };
+            document.getElementById('facebook_on').onchange = () => { streamToggle('facebook') };
+
+            document.getElementById('facebook_url').oninput = (function () {
+                validateURL('facebook', document.getElementById('facebook_url').value);
+            });
+
+            document.getElementById('instagram_off').onchange = () => { streamToggle('instagram') };
+            document.getElementById('instagram_on').onchange = () => { streamToggle('instagram') };
+
+            document.getElementById('instagram_url').oninput = (function () {
+                validateURL('instagram', document.getElementById('instagram_url').value);
+            });
+        </script>
+</body>

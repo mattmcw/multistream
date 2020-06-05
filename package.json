@@ -1,0 +1,28 @@
+{
+  "name": "multistream",
+  "version": "0.0.1",
+  "description": "Livestream to multiple sources",
+  "main": "dist/",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile" : "./node_modules/.bin/tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gitlab.com/mattmcw/multistream.git"
+  },
+  "author": "mattmcw",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/node": "^14.0.10",
+    "electron-forge": "^5.2.4",
+    "less": "^3.11.2",
+    "mocha": "^7.2.0",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "ffmpeg-static": "^4.2.2",
+    "node-media-server": "^2.1.9"
+  }
+}
